@@ -7,6 +7,8 @@ RUN apt-get install -y curl git
 
 RUN curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
 
+RUN echo "export PATH=/root/.pyenv/bin:$PATH" >> ~/.bashrc
+
 ENV PYENV_ROOT /root/.pyenv
 ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 
