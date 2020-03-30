@@ -18,6 +18,15 @@ inputs:
     required: false
     default: false
 
+  security_level:
+    description: "What security issues to alert on, {l - low, ll - medium, lll - high}"
+    required: false
+    default: 'll'
+
+  security_confidence:
+    description: "Only alert on security issues where confidence is {i - low, ii - medium, iii - high}"
+    default: 'ii'
+
 runs:
   using: "docker"
   image: "Dockerfile"
