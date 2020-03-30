@@ -3,11 +3,6 @@ description: "Github action to find common security issues in Python code and ge
 author: "Joel-hanson@github.com"
 
 inputs:
-  python_version:
-    description: "Version range or exact version of a Python version to use, using SemVer's version range syntax."
-    default: "3.6.10"
-    required: true
-
   project_path:
     description: "This is the path at which the your python project is located in you github repo."
     required: false
