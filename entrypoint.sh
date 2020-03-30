@@ -1,29 +1,14 @@
-#!/bin/sh -l
-
-if [ -z "$INPUT_PYTHON_VERSION" ]; then
-    echo "no python version provided"
-    exit 1
-else
-    pyenv install $INPUT_PYTHON_VERSION
-    pyenv global $INPUT_PYTHON_VERSION
-    pyenv rehash
-fi
-
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-pyenv virtualenv $INPUT_PYTHON_VERSION venv
-pyenv activate venv
+#!/bin/sh 
 
 echo "Running security check"
-pip install bandit
 mkdir -p $GITHUB_WORKSPACE/output
 touch $GITHUB_WORKSPACE/output/security_report.txt
 bandit -r $INPUT_PROJECT_PATH -c $GITHUB_WORKSPACE/.bandit.yml -$INPUT_SECURITY_LEVEL -$INPUT_SECURITY_CONFIDENCE -o $GITHUB_WORKSPACE/output/security_report.txt -f 'txt'
 
 if [ $? -eq 0 ]; then
-    echo "Security check passed"
+    echo "Security check passed, skipping reporting.."
 else
-    echo "Security check failed"
+    echo "Security check failed, writing to security_report"
     cat $GITHUB_WORKSPACE/output/security_report.txt
     if $INPUT_IGNORE_FAILURE; then
         exit 0
